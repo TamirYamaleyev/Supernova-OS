@@ -24,7 +24,7 @@
                Grid.Row="0"
                Grid.ColumnSpan="3"
                VerticalContentAlignment="Center"
-               Content="Game center" 
+               Content="Game Center" 
                HorizontalContentAlignment="Center" 
                Background="AliceBlue"
                FontWeight="Bold"
@@ -39,6 +39,17 @@
             VerticalAlignment="Center" 
             HorizontalAlignment="Center"
             FontSize="26"
+        />
+
+        <Label 
+            x:Name="DateLabel"
+            Content="" 
+            Grid.Row="0" 
+            Grid.Column="2" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            FontSize="16"
+            FontFamily="Arial Black"
         />
 
         <WrapPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">

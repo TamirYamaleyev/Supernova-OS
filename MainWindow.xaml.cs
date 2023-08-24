@@ -1,4 +1,5 @@
 ﻿using gameCenter.Projects.Project1;
+using GameCenterProject.Projects;
 using GameCenterProject.Projects.Brick_Breaker;
 using GameCenterProject.Projects.CurrencyConverter;
 using GameCenterProject.Projects.TodoList.Models;
@@ -6,6 +7,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace GameCenterProject
 {
@@ -17,6 +19,19 @@ namespace GameCenterProject
         public MainWindow()
         {
             InitializeComponent();
+
+            DispatcherTimer clock = new DispatcherTimer()
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            clock.Tick += dateTimerTick!;
+            clock.Start();
+        }
+
+        private void dateTimerTick (object sender, EventArgs e)
+        {
+            DateLabel.Content = DateTime.UtcNow.ToString("dddd, dd, MMMM, yyyy, HH:mm:ss");
+            CommandManager.InvalidateRequerySuggested();
         }
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
@@ -44,8 +59,10 @@ namespace GameCenterProject
         private void Image1_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Project1 project1 = new();
+            projectPresentationPage presentation = new();
+            presentation.OnStart("To-Do List", "" + "LOREM IMPSUM", Image1.Source, project1);
             Hide();
-            project1.ShowDialog();
+            presentation.ShowDialog();
             Show();
         }
 

@@ -36,7 +36,7 @@ namespace GameCenterProject.Projects.Brick_Breaker
             Canvas.SetTop(ball, 100);
 
             // Add the ball to the canvas
-            canvas.Children.Add(ball);
+            Canvas.Children.Add(ball);
         }
     }
 }
