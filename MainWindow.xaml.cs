@@ -2,6 +2,7 @@
 using GameCenterProject.Projects;
 using GameCenterProject.Projects.Brick_Breaker;
 using GameCenterProject.Projects.CurrencyConverter;
+using GameCenterProject.Projects.The_2048;
 using GameCenterProject.Projects.TodoList.Models;
 using System;
 using System.Windows;
@@ -82,7 +83,15 @@ namespace GameCenterProject
             Show();
         }
 
-        private void Image4_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Image5_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            The2048Window The2048GameWindow = new();
+            Hide();
+            The2048GameWindow.ShowDialog();
+            Show();
+        }
+
+        private void Image6_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             BrickBreakerWindow brickBreakerGame = new();
             Hide();
