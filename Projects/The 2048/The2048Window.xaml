@@ -5,106 +5,111 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameCenterProject.Projects.The_2048"
         mc:Ignorable="d"
-        Title="The2048Window" Height="800" Width="800"
-        SizeChanged="Window_SizeChanged">
-    
-    <Viewbox Stretch="Uniform" UseLayoutRounding="True">
-        <Grid UseLayoutRounding="True">
-            <Grid.Resources>
-                <!-- Define a style for the cell borders -->
-                <Style x:Key="CellBorderStyle" TargetType="Border">
-                    <Setter Property="BorderBrush" Value="#BBADA0" />
-                    <Setter Property="BorderThickness" Value="17"/>
-                    <Setter Property="UseLayoutRounding" Value="True"/>
-                </Style>
+        Title="The2048Window" Height="980" Width="980"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen">
 
-                <!-- Define a style for the cell content -->
-                <Style x:Key="CellContentStyle" TargetType="TextBlock">
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                </Style>
+    <Grid UseLayoutRounding="True">
+        <Grid.Resources>
+            <!-- Define a style for the cell borders -->
+            <Style x:Key="CellBorderStyle" TargetType="Border">
+                <Setter Property="BorderBrush" Value="#BBADA0" />
+                <Setter Property="BorderThickness" Value="17"/>
+                <Setter Property="UseLayoutRounding" Value="True"/>
+            </Style>
 
-                <Color x:Key="BorderColor1">#BBADA0</Color>
+            <!-- Define a style for the cell content -->
+            <Style x:Key="CellContentStyle" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+            </Style>
 
-            </Grid.Resources>
+            <Color x:Key="BorderColor1">#BBADA0</Color>
 
-            <Border CornerRadius="2" Style="{StaticResource CellBorderStyle}" Margin="0">
-                <Grid Margin="0" UseLayoutRounding="True" x:Name="mainGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
+        </Grid.Resources>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+        <Border CornerRadius="2" Style="{StaticResource CellBorderStyle}" Margin="0">
+            <Grid Margin="0" UseLayoutRounding="True" x:Name="GameGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
-                    <!-- Cells with borders -->
-                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell (e.g., text or other elements) -->
-                    </Border>
-                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <!-- Repeat for other cells -->
-                    <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <Border Grid.Row="0" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-                    <!-- Cells with borders -->
-                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell (e.g., text or other elements) -->
-                    </Border>
-                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <!-- Repeat for other cells -->
-                    <Border Grid.Row="1" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <Border Grid.Row="1" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
+                <!-- Cells with borders -->
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
+                    <ContentControl>
+                        <ContentControl.Content>
+                            <StackPanel>
+                                <Image Source="Images/2048Image.png" />
+                            </StackPanel>
+                        </ContentControl.Content>
+                    </ContentControl>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
+                    <Image Source="/Projects/The 2048/Images/2048Image.png" Stretch="UniformToFill"/>
+                </Border>
+                <!-- Repeat for other cells -->
+                <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
 
-                    <!-- Cells with borders -->
-                    <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell (e.g., text or other elements) -->
-                    </Border>
-                    <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <!-- Repeat for other cells -->
-                    <Border Grid.Row="2" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <Border Grid.Row="2" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
+                <!-- Cells with borders -->
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell (e.g., text or other elements) -->
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+                <!-- Repeat for other cells -->
+                <Border Grid.Row="1" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+                <Border Grid.Row="1" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
 
-                    <!-- Cells with borders -->
-                    <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell (e.g., text or other elements) -->
-                    </Border>
-                    <Border Grid.Row="3" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <!-- Repeat for other cells -->
-                    <Border Grid.Row="3" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                    <Border Grid.Row="3" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
-                        <!-- Content for cell -->
-                    </Border>
-                </Grid>
-            </Border>
-        </Grid>
-    </Viewbox>
+                <!-- Cells with borders -->
+                <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell (e.g., text or other elements) -->
+                </Border>
+                <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+                <!-- Repeat for other cells -->
+                <Border Grid.Row="2" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+                <Border Grid.Row="2" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+
+                <!-- Cells with borders -->
+                <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell (e.g., text or other elements) -->
+                </Border>
+                <Border Grid.Row="3" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+                <!-- Repeat for other cells -->
+                <Border Grid.Row="3" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+                <Border Grid.Row="3" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
+                    <!-- Content for cell -->
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>

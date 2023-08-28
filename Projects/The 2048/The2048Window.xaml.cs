@@ -22,13 +22,11 @@ namespace GameCenterProject.Projects.The_2048
         public The2048Window()
         {
             InitializeComponent();
+            StartGame();
         }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        public void StartGame()
         {
-            double minSize = Math.Min(e.NewSize.Width, e.NewSize.Height);
-            mainGrid.Width = minSize;
-            mainGrid.Height = minSize;
+
         }
     }
 }
