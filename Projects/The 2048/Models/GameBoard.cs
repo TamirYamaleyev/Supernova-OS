@@ -8,18 +8,21 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Security.Cryptography.Xml;
+using System.Runtime.CompilerServices;
 
 namespace GameCenterProject.Projects.The_2048.Models
 {
     class GameBoard
     {
-        public Grid gameGrid;
+        public Grid GameGrid;
+        public List<Tile> TileList { get; set; }
         public Tile[,] Board { get; set; }
 
         public GameBoard(Grid gridFromWindow)
         {
-            gameGrid = gridFromWindow;
+            GameGrid = gridFromWindow;
             Board = new Tile[4, 4];
+            TileList = new List<Tile>();
         }
 
         public void CreateTile(int tileValue)
@@ -41,14 +44,14 @@ namespace GameCenterProject.Projects.The_2048.Models
             newTile.TileImage.Width = 198;
             newTile.TileImage.Height = 198;
 
-            gameGrid.Children.Add(newTile.TileImage);
+            GameGrid.Children.Add(newTile.TileImage);
 
             newTile.Row = rowToSpawn;
             newTile.Column = colToSpawn;
-            //Grid.SetRow(newTile.TileImage, rowToSpawn);
-            //Grid.SetColumn(newTile.TileImage, colToSpawn);
+
+            TileList.Add(newTile);
         }
-        public static void MoveTiles(Key keyPressed)
+        public static void MoveTiles(Key keyPressed, Grid gridFromWindow)
         {
             int rowChange;
             int colChange;
@@ -68,11 +71,14 @@ namespace GameCenterProject.Projects.The_2048.Models
                     break;
             }
 
+            int rowCount = gridFromWindow.RowDefinitions.Count;
+            int colCount = gridFromWindow.ColumnDefinitions.Count;
             
+            foreach(Tile tile in TileList)
         }
         public bool CheckIfCellIsOpen(int row, int col)
         {
-            UIElement cellContent = gameGrid.Children.Cast<UIElement>().FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col)!;
+            UIElement cellContent = GameGrid.Children.Cast<UIElement>().FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col)!;
             return cellContent is Image;
         }
     }

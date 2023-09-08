@@ -38,7 +38,7 @@ namespace GameCenterProject.Projects.The_2048
         {
             if (e.Key == Key.Left || e.Key == Key.Up || e.Key == Key.Right || e.Key == Key.Down)
             {
-                GameBoard.MoveTiles(e.Key);
+                GameBoard.MoveTiles(e.Key, GameGrid);
             }
         }
     }
