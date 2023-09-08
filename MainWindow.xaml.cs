@@ -78,8 +78,10 @@ namespace GameCenterProject
         private void Image3_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             CurrencyConverterView currencyConverterProject = new();
+            projectPresentationPage presentation = new();
+            presentation.OnStart("Currency Converter", "" + "LOREM IPSUM", Image1.Source, currencyConverterProject);
             Hide();
-            currencyConverterProject.ShowDialog();
+            presentation.ShowDialog();
             Show();
         }
 

@@ -19,7 +19,7 @@ namespace GameCenterProject.Projects
     /// </summary>
     public partial class projectPresentationPage : Window
     {
-        private Window currentProject;
+        private Window? currentProject;
         public projectPresentationPage()
         {
             InitializeComponent();
@@ -34,8 +34,10 @@ namespace GameCenterProject.Projects
         }
 
         private void LaunchProject(object sender, MouseButtonEventArgs e)
-        {
-
+        {            
+            Close();
+            currentProject!.ShowDialog();
+            currentProject!.Close();
         }
     }
 }

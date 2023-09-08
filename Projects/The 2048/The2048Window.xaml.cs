@@ -1,6 +1,8 @@
-﻿using System;
+﻿using GameCenterProject.Projects.The_2048.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,10 +25,21 @@ namespace GameCenterProject.Projects.The_2048
         {
             InitializeComponent();
             StartGame();
+
+            this.KeyDown += MainWindow_KeyDown;
         }
         public void StartGame()
         {
-
+            GameBoard TheGameBoard = new GameBoard(GameGrid);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);            
+        }
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Left || e.Key == Key.Up || e.Key == Key.Right || e.Key == Key.Down)
+            {
+                GameBoard.MoveTiles(e.Key);
+            }
         }
     }
 }

@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="The2048Window" Height="980" Width="980"
         ResizeMode="CanMinimize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        UseLayoutRounding="True"
+        RenderOptions.BitmapScalingMode="HighQuality">
 
     <Grid UseLayoutRounding="True">
         <Grid.Resources>
@@ -16,6 +18,7 @@
                 <Setter Property="BorderBrush" Value="#BBADA0" />
                 <Setter Property="BorderThickness" Value="17"/>
                 <Setter Property="UseLayoutRounding" Value="True"/>
+                <Setter Property="Background" Value="#CDC1B4"/>
             </Style>
 
             <!-- Define a style for the cell content -->
@@ -31,17 +34,17 @@
         <Border CornerRadius="2" Style="{StaticResource CellBorderStyle}" Margin="0">
             <Grid Margin="0" UseLayoutRounding="True" x:Name="GameGrid">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Cells with borders -->
@@ -49,13 +52,17 @@
                     <ContentControl>
                         <ContentControl.Content>
                             <StackPanel>
-                                <Image Source="Images/2048Image.png" />
                             </StackPanel>
                         </ContentControl.Content>
                     </ContentControl>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                    <Image Source="/Projects/The 2048/Images/2048Image.png" Stretch="UniformToFill"/>
+                    <ContentControl>
+                        <ContentControl.Content>
+                            <StackPanel>
+                            </StackPanel>
+                        </ContentControl.Content>
+                    </ContentControl>
                 </Border>
                 <!-- Repeat for other cells -->
                 <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
@@ -70,7 +77,13 @@
                     <!-- Content for cell (e.g., text or other elements) -->
                 </Border>
                 <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                    <!-- Content for cell -->
+                    <ContentControl>
+                        <ContentControl.Content>
+                            <StackPanel>
+                                
+                            </StackPanel>
+                        </ContentControl.Content>
+                    </ContentControl>
                 </Border>
                 <!-- Repeat for other cells -->
                 <Border Grid.Row="1" Grid.Column="2" Style="{StaticResource CellBorderStyle}">

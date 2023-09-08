@@ -12,7 +12,7 @@ namespace gameCenter.Projects.Project1
     public partial class Project1 : Window
     {
         private readonly UsersListHandler _listHandler;
-        private readonly List<User> _users;
+        private readonly List <User> _users;
 
         private int _selectedUserId;
         public Project1()
