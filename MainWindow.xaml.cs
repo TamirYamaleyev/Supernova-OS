@@ -2,6 +2,7 @@
 using GameCenterProject.Projects;
 using GameCenterProject.Projects.Brick_Breaker;
 using GameCenterProject.Projects.CurrencyConverter;
+using GameCenterProject.Projects.RubiksTimer;
 using GameCenterProject.Projects.The_2048;
 using GameCenterProject.Projects.TodoList.Models;
 using System;
@@ -80,6 +81,15 @@ namespace GameCenterProject
             CurrencyConverterView currencyConverterProject = new();
             projectPresentationPage presentation = new();
             presentation.OnStart("Currency Converter", "" + "LOREM IPSUM", Image1.Source, currencyConverterProject);
+            Hide();
+            presentation.ShowDialog();
+            Show();
+        }
+        private void Image4_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            RubiksTimerWindow cubeTimerProject = new();
+            projectPresentationPage presentation = new();
+            presentation.OnStart("Rubik's Cube Timer", "" + "LOREM IPSUM", Image1.Source, cubeTimerProject);
             Hide();
             presentation.ShowDialog();
             Show();

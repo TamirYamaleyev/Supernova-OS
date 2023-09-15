@@ -21,24 +21,34 @@ namespace GameCenterProject.Projects.The_2048
     /// </summary>
     public partial class The2048Window : Window
     {
+        private GameBoard TheGameBoard;
         public The2048Window()
         {
             InitializeComponent();
             StartGame();
-
             this.KeyDown += MainWindow_KeyDown;
         }
         public void StartGame()
         {
-            GameBoard TheGameBoard = new GameBoard(GameGrid);
+            TheGameBoard = new GameBoard(GameGrid);
             TheGameBoard.CreateTile(2);
-            TheGameBoard.CreateTile(2);            
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
         }
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left || e.Key == Key.Up || e.Key == Key.Right || e.Key == Key.Down)
             {
-                GameBoard.MoveTiles(e.Key, GameGrid);
+                foreach(Tile tile in TheGameBoard.TileList)
+                {
+
+                }
             }
         }
     }

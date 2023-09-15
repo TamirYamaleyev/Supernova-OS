@@ -49,20 +49,14 @@
 
                 <!-- Cells with borders -->
                 <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CellBorderStyle}">
-                    <ContentControl>
+                    <!--<ContentControl>
                         <ContentControl.Content>
                             <StackPanel>
                             </StackPanel>
                         </ContentControl.Content>
-                    </ContentControl>
+                    </ContentControl>-->
                 </Border>
                 <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                    <ContentControl>
-                        <ContentControl.Content>
-                            <StackPanel>
-                            </StackPanel>
-                        </ContentControl.Content>
-                    </ContentControl>
                 </Border>
                 <!-- Repeat for other cells -->
                 <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
@@ -77,13 +71,6 @@
                     <!-- Content for cell (e.g., text or other elements) -->
                 </Border>
                 <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CellBorderStyle}">
-                    <ContentControl>
-                        <ContentControl.Content>
-                            <StackPanel>
-                                
-                            </StackPanel>
-                        </ContentControl.Content>
-                    </ContentControl>
                 </Border>
                 <!-- Repeat for other cells -->
                 <Border Grid.Row="1" Grid.Column="2" Style="{StaticResource CellBorderStyle}">
@@ -120,7 +107,7 @@
                     <!-- Content for cell -->
                 </Border>
                 <Border Grid.Row="3" Grid.Column="3" Style="{StaticResource CellBorderStyle}">
-                    <!-- Content for cell -->
+                     <!--Content for cell--> 
                 </Border>
             </Grid>
         </Border>

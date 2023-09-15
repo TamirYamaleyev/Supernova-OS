@@ -31,10 +31,13 @@ namespace GameCenterProject.Projects.The_2048.Models
             int rowToSpawn = rand.Next(0, 4);
             int colToSpawn = rand.Next(0, 4);
 
-            while (CheckIfCellIsOpen(rowToSpawn, colToSpawn))
+            bool isntOpen = true;
+
+            while(isntOpen)
             {
                 rowToSpawn = rand.Next(0, 4);
                 colToSpawn = rand.Next(0, 4);
+                isntOpen = CheckIfCellIsOccupied(rowToSpawn, colToSpawn);
             }
 
             Tile newTile = new Tile(tileValue, rowToSpawn, colToSpawn);
@@ -51,7 +54,7 @@ namespace GameCenterProject.Projects.The_2048.Models
 
             TileList.Add(newTile);
         }
-        public static void MoveTiles(Key keyPressed, Grid gridFromWindow)
+        public void MoveTiles(Key keyPressed, Grid gridFromWindow)
         {
             int rowChange;
             int colChange;
@@ -73,13 +76,16 @@ namespace GameCenterProject.Projects.The_2048.Models
 
             int rowCount = gridFromWindow.RowDefinitions.Count;
             int colCount = gridFromWindow.ColumnDefinitions.Count;
-            
-            foreach(Tile tile in TileList)
         }
-        public bool CheckIfCellIsOpen(int row, int col)
+        public bool CheckIfCellIsOccupied(int row, int col)
         {
-            UIElement cellContent = GameGrid.Children.Cast<UIElement>().FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col)!;
-            return cellContent is Image;
+            var children = GameGrid.Children.Cast<UIElement>().All(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
+            //foreach (Image child in children)
+            //{
+            //    return child is Image;
+            //}
+            return false;
+            //UIElement cellContent = GameGrid.Children.Cast<UIElement>().FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col)!;
         }
     }
 }
