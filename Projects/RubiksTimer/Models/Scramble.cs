@@ -22,7 +22,7 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
                 // Double and Prime modifiers
                 if (random.Next(3) == 0) 
                     scramble.Append(random.Next(2) == 0 ? "2" : "'");
-                scramble.Append(" ");
+                scramble.Append("   ");
             }
             return scramble.ToString().Trim();
         }
