@@ -20,7 +20,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.15*"/>
         </Grid.ColumnDefinitions>
 
 
@@ -31,14 +31,13 @@
         <Rectangle Grid.Row="1" Grid.Column="0" Fill="#581c1c"/>
         <Rectangle Grid.Row="1" Grid.Column="1" Fill="#b0b0b0"/>
 
-        <Border Grid.Row="0" Height="50">
+        <Border Grid.Row="0">
             <TextBlock
-                   x:Name="ScrambleText"
+                   x:Name="ScrambleTextElement"
                    VerticalAlignment="Center"
                    Grid.Row="1" TextWrapping="Wrap"
                    Text="Scramble Placeholder"
                    TextAlignment="Center"
-                   Width="500"
                    FontSize="32"/>
         </Border>
 
@@ -60,7 +59,7 @@
                    TextAlignment="Left"
                    FontSize="150" FontFamily="Seven Segmant"/>
             </Border>
-            <Border Grid.Column="01">
+            <Border Grid.Column="1">
                 <TextBlock 
                    x:Name="CubeTimerTextMin"
                    VerticalAlignment="Center"
@@ -90,7 +89,7 @@
                 <TextBlock 
                    VerticalAlignment="Center"
                    Grid.Row="1" TextWrapping="Wrap"
-                   Text=":"
+                   Text="."
                    TextAlignment="Center"
                    FontSize="150" FontFamily="Seven Segmant"/>
             </Border>
@@ -135,16 +134,36 @@
                 </Button.Style>
             </Button>
         </Border>
-        
-        <Border Grid.Row="1" Grid.Column="1">
 
-            <StackPanel x:Name="HistoryListSP" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    FontSize="36"
-                    FontWeight="Bold"
-                    Text="Times"/>
-            </StackPanel>
-        </Border>
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            FontSize="36"
+            FontWeight="Bold"
+            Margin="0, 30, 0, 0"
+            Text="Times"/>
+
+        <Grid x:Name="timesGrid" Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.15*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.45*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="1" Grid.Column="0">
+                <StackPanel x:Name="CountSP" HorizontalAlignment="Right"/>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="1">
+                <StackPanel x:Name="HistoryListSP" HorizontalAlignment="Left"/>
+            </Border>
+        </Grid>
+
+
     </Grid>
 </Window>
