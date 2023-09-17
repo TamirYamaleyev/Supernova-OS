@@ -14,8 +14,8 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
     class CubeTimer : INotifyPropertyChanged
     {
         public DispatcherTimer DTimer;
-        private int _milliseconds;
         private bool timerRan = false;
+        private int _milliseconds;
         public int Milliseconds
         {
             get { return _milliseconds; }
@@ -54,11 +54,11 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
                 }
             }
         }
-        public CubeTimer() // Constructor
+        public CubeTimer()
         {
-            DTimer = new DispatcherTimer();
-            DTimer.Interval = TimeSpan.FromMilliseconds(1);
-            DTimer.Tick += DTimer_Tick!;
+            DTimer = new DispatcherTimer(DispatcherPriority.Send);
+            DTimer.Interval = TimeSpan.FromMilliseconds(10);
+            DTimer.Tick += DTimer_Tick;
         }
 
         public void DTimer_Tick(object sender, EventArgs e)
@@ -90,16 +90,12 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
         { 
             DTimer.Stop();
             timerRan = true;
-
-            // Add time to history
         }
         public void RestartTimer()
         {
             Milliseconds = 0;
             Seconds = 0;
             Minutes = 0;
-
-            // Reroll scramble
         }
 
         // Handles updating the timer UI text

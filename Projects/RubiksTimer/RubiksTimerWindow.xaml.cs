@@ -35,16 +35,24 @@ namespace GameCenterProject.Projects.RubiksTimer
         {
             if (e.Key == Key.Space && !isCounting)
             {
-                    isCounting = true;
-                    timerInstance.StartTimer();
+                StartCubeTimer();
             }
             else if (e.Key == Key.Space && isCounting)
             {
-                isCounting = false;
-                timerInstance.StopTimer();
+                AddTime();
             }
         }
-
+        private void StartCubeTimer()
+        {
+            isCounting = true;
+            timerInstance.StartTimer();
+        }
+        private void AddTime()
+        {
+            isCounting = false;
+            timerInstance.StopTimer();
+            HistoryItem newHistory = new HistoryItem(timerInstance.Milliseconds, timerInstance.Seconds, timerInstance.Minutes, HistoryListSP);
+        }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
