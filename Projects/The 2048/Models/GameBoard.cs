@@ -32,7 +32,7 @@ namespace GameCenterProject.Projects.The_2048.Models
             int rowToSpawn = rand.Next(0, 4);
             int colToSpawn = rand.Next(0, 4);
 
-            bool isOccupied = false;
+            bool isOccupied = true;
 
             while(isOccupied)
             {
@@ -119,7 +119,7 @@ namespace GameCenterProject.Projects.The_2048.Models
         }
         public bool IsCellOccupied(int row, int col)
         {
-            if (TileMatrix[row, col] != null)
+            if (TileMatrix[row, col] == null)
             {
                 return false;
             }
@@ -127,7 +127,7 @@ namespace GameCenterProject.Projects.The_2048.Models
         }
         public bool IsMovePossible(int rowChange, int colChange, Tile tile)
         {
-            if ((tile.Row + rowChange) < 0 || (tile.Row + rowChange) > 4 || (tile.Column + colChange) < 0 || (tile.Column + colChange) > 4)
+            if ((tile.Row + rowChange) < 0 || (tile.Row + rowChange) > 3 || (tile.Column + colChange) < 0 || (tile.Column + colChange) > 3)
             {
                 return false;
             }

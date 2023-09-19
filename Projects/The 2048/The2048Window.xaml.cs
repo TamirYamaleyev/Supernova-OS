@@ -33,6 +33,13 @@ namespace GameCenterProject.Projects.The_2048
             TheGameBoard = new GameBoard(GameGrid);
             TheGameBoard.CreateTile(2);
             TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
+            TheGameBoard.CreateTile(2);
         }
         public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
