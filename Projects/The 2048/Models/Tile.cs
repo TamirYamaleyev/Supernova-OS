@@ -14,7 +14,7 @@ namespace GameCenterProject.Projects.The_2048.Models
         public int Row
         {
             get { return Grid.GetRow(TileImage); }
-            set{ Grid.SetRow(TileImage, value); }
+            set { Grid.SetRow(TileImage, value); }
         }
         public int Column
         {

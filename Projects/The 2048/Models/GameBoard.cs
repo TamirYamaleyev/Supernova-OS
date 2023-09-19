@@ -15,14 +15,15 @@ namespace GameCenterProject.Projects.The_2048.Models
     class GameBoard
     {
         public Grid GameGrid;
-        public List<Tile> TileList { get; set; }
+        //public List<Tile> TileList { get; set; }
+        public Tile[,] TileMatrix { get; set; }
         public Tile[,] Board { get; set; }
 
         public GameBoard(Grid gridFromWindow)
         {
             GameGrid = gridFromWindow;
             Board = new Tile[4, 4];
-            TileList = new List<Tile>();
+            TileMatrix = new Tile[4,4];
         }
 
         public void CreateTile(int tileValue)
@@ -31,13 +32,13 @@ namespace GameCenterProject.Projects.The_2048.Models
             int rowToSpawn = rand.Next(0, 4);
             int colToSpawn = rand.Next(0, 4);
 
-            bool isntOpen = true;
+            bool isOccupied = false;
 
-            while(isntOpen)
+            while(isOccupied)
             {
                 rowToSpawn = rand.Next(0, 4);
                 colToSpawn = rand.Next(0, 4);
-                isntOpen = CheckIfCellIsOccupied(rowToSpawn, colToSpawn);
+                isOccupied = IsCellOccupied(rowToSpawn, colToSpawn);
             }
 
             Tile newTile = new Tile(tileValue, rowToSpawn, colToSpawn);
@@ -52,40 +53,111 @@ namespace GameCenterProject.Projects.The_2048.Models
             newTile.Row = rowToSpawn;
             newTile.Column = colToSpawn;
 
-            TileList.Add(newTile);
+            TileMatrix[rowToSpawn, colToSpawn] = newTile;
         }
-        public void MoveTiles(Key keyPressed, Grid gridFromWindow)
+        public void MoveTiles(Key keyPressed)
         {
-            int rowChange;
-            int colChange;
+            int rowChange = 0;
+            int colChange = 0;
             switch (keyPressed)
             {
                 case Key.Left:
-                    rowChange = -1;
-                    break;
-                case Key.Up:
                     colChange = -1;
+
+                    foreach (Tile currentTile in TileMatrix)
+                    {
+                        if (currentTile == null) continue;
+                        if (IsMovePossible(rowChange, colChange, currentTile))
+                        {
+                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
+                        }
+                    }
                     break;
+
+                case Key.Up:
+                    rowChange = -1;
+
+                    foreach (Tile currentTile in TileMatrix)
+                    {
+                        if (currentTile == null) continue;
+                        if (IsMovePossible(rowChange, colChange, currentTile))
+                        {
+                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
+                        }
+                    }
+                    break;
+
                 case Key.Right:
-                    rowChange = 1;
-                    break;
-                case Key.Down:
                     colChange = 1;
+
+                    foreach (Tile currentTile in TileMatrix)
+                    {
+                        if (currentTile == null) continue;
+                        if (IsMovePossible(rowChange, colChange, currentTile))
+                        {
+                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
+                        }
+                    }
+                    break;
+
+                case Key.Down:
+                    rowChange = 1;
+
+                    foreach (Tile currentTile in TileMatrix)
+                    {
+                        if (currentTile == null) continue;
+                        if (IsMovePossible(rowChange, colChange, currentTile))
+                        {
+                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
+                        }
+                    }
                     break;
             }
 
-            int rowCount = gridFromWindow.RowDefinitions.Count;
-            int colCount = gridFromWindow.ColumnDefinitions.Count;
+            int rowCount = GameGrid.RowDefinitions.Count;
+            int colCount = GameGrid.ColumnDefinitions.Count;
         }
-        public bool CheckIfCellIsOccupied(int row, int col)
+        public bool IsCellOccupied(int row, int col)
         {
-            var children = GameGrid.Children.Cast<UIElement>().All(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
-            //foreach (Image child in children)
-            //{
-            //    return child is Image;
-            //}
-            return false;
-            //UIElement cellContent = GameGrid.Children.Cast<UIElement>().FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col)!;
+            if (TileMatrix[row, col] != null)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool IsMovePossible(int rowChange, int colChange, Tile tile)
+        {
+            if ((tile.Row + rowChange) < 0 || (tile.Row + rowChange) > 4 || (tile.Column + colChange) < 0 || (tile.Column + colChange) > 4)
+            {
+                return false;
+            }
+            return true;
+        }
+        public void MoveTile(Tile currentTile, int newRow, int newCol)
+        {
+            if (!IsCellOccupied(newRow, newCol))
+            {
+                int oldRow = currentTile.Row;
+                int oldCol = currentTile.Column;
+
+                currentTile.Row = newRow;
+                currentTile.Column = newCol;
+
+                TileMatrix[currentTile.Row, currentTile.Column] = currentTile;
+
+                TileMatrix[oldRow, oldCol] = null!;
+            }
+            else
+            {
+                CombineTiles(currentTile, newRow, newCol);
+            }
+        }
+        public void CombineTiles(Tile movingTile, int newRow, int newCol)
+        {
+            movingTile.TileValue += TileMatrix[newRow, newCol].TileValue;
+            movingTile = null!;
+
+            // Change Tile Image
         }
     }
 }
