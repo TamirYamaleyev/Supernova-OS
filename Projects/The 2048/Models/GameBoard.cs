@@ -55,67 +55,122 @@ namespace GameCenterProject.Projects.The_2048.Models
 
             TileMatrix[rowToSpawn, colToSpawn] = newTile;
         }
-        public void MoveTiles(Key keyPressed)
+
+        public void MoveLeft()
         {
-            int rowChange = 0;
-            int colChange = 0;
-            switch (keyPressed)
+            // Go through each Row
+            for (int i = 0; i < 4; i++)
             {
-                case Key.Left:
-                    colChange = -1;
-
-                    foreach (Tile currentTile in TileMatrix)
+                // Go through each cell starting from [x,1]
+                for (int j = 1; j < 4; j++)
+                {
+                    // Check if the cell can move left, keep moving until you either hit a cell to combine with or you hit the edge
+                    if (TileMatrix[i, j] != null)
                     {
-                        if (currentTile == null) continue;
-                        if (IsMovePossible(rowChange, colChange, currentTile))
+                        int currentTileX = j;
+                        while (currentTileX > 0 && !IsCellOccupied(i, currentTileX - 1))
                         {
-                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
+                            MoveTile(TileMatrix[i, currentTileX], i, currentTileX - 1);
+                            currentTileX--;
+                        }
+
+                        if (currentTileX > 0 && IsCellOccupied(i, currentTileX - 1))
+                        {
+                            if (TileMatrix[i, currentTileX].TileValue == TileMatrix[i, currentTileX - 1].TileValue)
+                            {
+                                CombineTiles(TileMatrix[i, currentTileX], i, currentTileX - 1);
+                            }
                         }
                     }
-                    break;
-
-                case Key.Up:
-                    rowChange = -1;
-
-                    foreach (Tile currentTile in TileMatrix)
-                    {
-                        if (currentTile == null) continue;
-                        if (IsMovePossible(rowChange, colChange, currentTile))
-                        {
-                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
-                        }
-                    }
-                    break;
-
-                case Key.Right:
-                    colChange = 1;
-
-                    foreach (Tile currentTile in TileMatrix)
-                    {
-                        if (currentTile == null) continue;
-                        if (IsMovePossible(rowChange, colChange, currentTile))
-                        {
-                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
-                        }
-                    }
-                    break;
-
-                case Key.Down:
-                    rowChange = 1;
-
-                    foreach (Tile currentTile in TileMatrix)
-                    {
-                        if (currentTile == null) continue;
-                        if (IsMovePossible(rowChange, colChange, currentTile))
-                        {
-                            MoveTile(currentTile, currentTile.Row + rowChange, currentTile.Column + colChange);
-                        }
-                    }
-                    break;
+                }
             }
+        }
+        public void MoveRight()
+        {
+            // Go through each Row
+            for (int i = 0; i < 4; i++)
+            {
+                // Go through each cell starting from [x,2]
+                for (int j = 2; j > -1; j--)
+                {
+                    // Check if the cell can move left, keep moving until you either hit a cell to combine with or you hit the edge
+                    if (TileMatrix[i, j] != null)
+                    {
+                        int currentTileX = j;
+                        while (currentTileX < 3 && !IsCellOccupied(i, currentTileX + 1))
+                        {
+                            MoveTile(TileMatrix[i, currentTileX], i, currentTileX + 1);
+                            currentTileX++;
+                        }
 
-            int rowCount = GameGrid.RowDefinitions.Count;
-            int colCount = GameGrid.ColumnDefinitions.Count;
+                        if (currentTileX < 3 && IsCellOccupied(i, currentTileX + 1))
+                        {
+                            if (TileMatrix[i, currentTileX].TileValue == TileMatrix[i, currentTileX + 1].TileValue)
+                            {
+                                CombineTiles(TileMatrix[i, currentTileX], i, currentTileX + 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void MoveUp()
+        {
+            // Go through each Column
+            for (int j = 0; j < 4; j++)
+            {
+                // Go through each cell starting from [1,x]
+                for (int i = 1; i < 4; i++)
+                {
+                    // Check if the cell can move up, keep moving until you either hit a cell to combine with or you hit the edge
+                    if (TileMatrix[i, j] != null)
+                    {
+                        int currentTileY = i;
+                        while (currentTileY > 0 && !IsCellOccupied(currentTileY - 1, j))
+                        {
+                            MoveTile(TileMatrix[currentTileY, j], currentTileY - 1, j);
+                            currentTileY--;
+                        }
+
+                        if (currentTileY > 0 && IsCellOccupied(currentTileY - 1, j))
+                        {
+                            if (TileMatrix[currentTileY, j].TileValue == TileMatrix[currentTileY - 1, j].TileValue)
+                            {
+                                CombineTiles(TileMatrix[currentTileY, j], currentTileY - 1, j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void MoveDown()
+        {
+            // Go through each Column
+            for (int j = 0; j < 4; j++)
+            {
+                // Go through each cell starting from [2,x]
+                for (int i = 2; i > -1; i--)
+                {
+                    // Check if the cell can move up, keep moving until you either hit a cell to combine with or you hit the edge
+                    if (TileMatrix[i, j] != null)
+                    {
+                        int currentTileY = i;
+                        while (currentTileY < 3 && !IsCellOccupied(currentTileY + 1, j))
+                        {
+                            MoveTile(TileMatrix[currentTileY, j], currentTileY + 1, j);
+                            currentTileY++;
+                        }
+
+                        if (currentTileY < 3 && IsCellOccupied(currentTileY + 1, j))
+                        {
+                            if (TileMatrix[currentTileY, j].TileValue == TileMatrix[currentTileY + 1, j].TileValue)
+                            {
+                                CombineTiles(TileMatrix[currentTileY, j], currentTileY + 1, j);
+                            }
+                        }
+                    }
+                }
+            }
         }
         public bool IsCellOccupied(int row, int col)
         {
@@ -125,39 +180,31 @@ namespace GameCenterProject.Projects.The_2048.Models
             }
             return true;
         }
-        public bool IsMovePossible(int rowChange, int colChange, Tile tile)
-        {
-            if ((tile.Row + rowChange) < 0 || (tile.Row + rowChange) > 3 || (tile.Column + colChange) < 0 || (tile.Column + colChange) > 3)
-            {
-                return false;
-            }
-            return true;
-        }
         public void MoveTile(Tile currentTile, int newRow, int newCol)
         {
-            if (!IsCellOccupied(newRow, newCol))
-            {
-                int oldRow = currentTile.Row;
-                int oldCol = currentTile.Column;
+            //int oldRow = currentTile.Row;
+            //int oldCol = currentTile.Column;
 
-                currentTile.Row = newRow;
-                currentTile.Column = newCol;
+            //currentTile.Row = newRow;
+            //currentTile.Column = newCol;
 
-                TileMatrix[currentTile.Row, currentTile.Column] = currentTile;
+            //TileMatrix[newRow, newCol] = currentTile;
 
-                TileMatrix[oldRow, oldCol] = null!;
-            }
-            else
-            {
-                CombineTiles(currentTile, newRow, newCol);
-            }
+            TileMatrix[newRow, newCol] = Tile.CloneToLocation(currentTile, newRow, newCol);
+            DestroyTile(TileMatrix[currentTile.Row, currentTile.Column]);
         }
+        // Moving tile, Stationary Tile row, Stationary Tile column
         public void CombineTiles(Tile movingTile, int newRow, int newCol)
         {
-            movingTile.TileValue += TileMatrix[newRow, newCol].TileValue;
-            movingTile = null!;
-
-            // Change Tile Image
+            //TileMatrix[newRow, newCol].TileValue += movingTile.TileValue;
+            //// Change Tile Image
+            //DestroyTile(movingTile);
+        }
+        public void DestroyTile(Tile tileToDestroy)
+        {
+            GameGrid.Children.Remove(TileMatrix[tileToDestroy.Row, tileToDestroy.Column].TileImage);
+            TileMatrix[tileToDestroy.Row, tileToDestroy.Column].TileImage = null;
+            tileToDestroy = null;
         }
     }
 }

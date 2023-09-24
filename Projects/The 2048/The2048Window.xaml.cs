@@ -43,9 +43,12 @@ namespace GameCenterProject.Projects.The_2048
         }
         public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Left || e.Key == Key.Up || e.Key == Key.Right || e.Key == Key.Down)
+            switch(e.Key)
             {
-                TheGameBoard.MoveTiles(e.Key);
+                case Key.Left: TheGameBoard.MoveLeft(); break;
+                case Key.Right: TheGameBoard.MoveRight(); break;
+                case Key.Up: TheGameBoard.MoveUp(); break;
+                case Key.Down : TheGameBoard.MoveDown(); break;
             }
         }
     }

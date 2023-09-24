@@ -36,6 +36,10 @@ namespace GameCenterProject.Projects.The_2048.Models
             Row = row;
             Column = col;
         }
-
+        public static Tile CloneToLocation(Tile originalTile, int newRow, int newCol)
+        {
+            Tile newTile = new Tile(originalTile.TileValue, newRow, newCol);
+            return newTile;
+        }
     }
 }
