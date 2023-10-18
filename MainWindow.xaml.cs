@@ -1,6 +1,7 @@
 ﻿using gameCenter.Projects.Project1;
 using GameCenterProject.Projects;
 using GameCenterProject.Projects.Brick_Breaker;
+using GameCenterProject.Projects.Calculator.Models;
 using GameCenterProject.Projects.CurrencyConverter;
 using GameCenterProject.Projects.RubiksTimer;
 using GameCenterProject.Projects.The_2048;
@@ -105,9 +106,11 @@ namespace GameCenterProject
 
         private void Image6_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            BrickBreakerWindow brickBreakerGame = new();
+            CalculatorWindow calculatorWindow = new();
+            projectPresentationPage presentation = new();
+            presentation.OnStart("Calculator", "" + "LOREM IPSUM", Image1.Source, calculatorWindow);
             Hide();
-            brickBreakerGame.ShowDialog();
+            presentation.ShowDialog();
             Show();
         }
     }
