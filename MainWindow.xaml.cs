@@ -46,9 +46,9 @@ namespace GameCenterProject
                 "Image1" => "A User Management System",
                 "Image2" => "A To Do List",
                 "Image3" => "A Currency Conversion System",
-                "Image4" => "Game No. 4 is a game about lorm ipsum & happy birthday",
-                "Image5" => "Game No. 5 is a game about lorm ipsum & happy birthday",
-                "Image6" => "Brick Breaker Clone",
+                "Image4" => "Rubik's Cube Timer",
+                "Image5" => "2048",
+                "Image6" => "Calculator",
                 _ => "please pick a game"
             };
         }
@@ -108,7 +108,7 @@ namespace GameCenterProject
         {
             CalculatorWindow calculatorWindow = new();
             projectPresentationPage presentation = new();
-            presentation.OnStart("Calculator", "" + "LOREM IPSUM", Image1.Source, calculatorWindow);
+            presentation.OnStart("Calculator", "" + "Calculator", Image1.Source, calculatorWindow);
             Hide();
             presentation.ShowDialog();
             Show();
