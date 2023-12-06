@@ -55,7 +55,7 @@ namespace GameCenterProject.Projects.Calculator.Models
             return double.Parse(LeftNumber) / double.Parse(RightNumber);
         }
 
-        public static void Backspace(Label label)
+        public static void Backspace(Label textLabel, Label storyLabel)
         {
             if (Operator == "")
             {
@@ -64,40 +64,47 @@ namespace GameCenterProject.Projects.Calculator.Models
                 {
                     LeftNumber = LeftNumber.Remove(LeftNumber.Length - 1);
                 }
-                UpdateDisplayText(label, LeftNumber);
+                UpdateDisplayText(textLabel, LeftNumber);
             }
             else
             {
-                if (RightNumber.Length == 1 || RightNumber.Length == 0) RightNumber = "0";
-                if (RightNumber.Length > 1)
+                if (RightNumber != "")
                 {
-                    RightNumber = RightNumber.Remove(RightNumber.Length - 1);
+                    if (RightNumber.Length == 1 || RightNumber.Length == 0) RightNumber = "0";
+                    if (RightNumber.Length > 1)
+                    {
+                        RightNumber = RightNumber.Remove(RightNumber.Length - 1);
+                    }
+                    UpdateDisplayText(textLabel, RightNumber);
                 }
-                UpdateDisplayText(label, RightNumber);
             }
+            UpdateDisplayStory(storyLabel);
         }
-        public static void Clear(Label label)
+        public static void Clear(Label textLabel, Label storyLabel)
         {
             if (Operator == null)
             {
                 LeftNumber = "0";
-                UpdateDisplayText(label, LeftNumber);
+                UpdateDisplayText(textLabel, LeftNumber);
             }
             else
             {
                 RightNumber = "0";
-                UpdateDisplayText(label, RightNumber);
+                UpdateDisplayText(textLabel, RightNumber);
             }
+            UpdateDisplayStory(storyLabel);
         }
-        public static void ClearAll(Label label)
+        public static void ClearAll(Label textLabel, Label storyLabel)
         {
             LeftNumber = "0";
             RightNumber = "";
             Operator = "";
-            UpdateDisplayText(label, LeftNumber);
+            Result = "";
+            UpdateDisplayText(textLabel, LeftNumber);
+            UpdateDisplayStory(storyLabel);
         }
 
-        public static void PressCalculate(Label label)
+        public static void PressCalculate(Label textLabel, Label storyLabel)
         {
             if (RightNumber == "") RightNumber = LeftNumber;
             switch (Operator)
@@ -108,16 +115,35 @@ namespace GameCenterProject.Projects.Calculator.Models
                 case "÷": Result = Divide().ToString(); break;
                 default: Result = LeftNumber; break;
             }
+            UpdateDisplayStory(storyLabel);
+
             Operator = "";
             LeftNumber = Result;
-            UpdateDisplayText(label, LeftNumber);
+            UpdateDisplayText(textLabel, LeftNumber);
             RightNumber = "";
             Operator = "";
+            //Result = "";
         }
 
         public static void UpdateDisplayText(Label label, string valueToDisplay)
         {
             label.Content = valueToDisplay;
+        }
+        
+        public static void UpdateDisplayStory(Label label)
+        {
+            if (Result != "")
+            {
+                label.Content = $"{LeftNumber} {Operator} {RightNumber} =";
+            }
+            else if (Operator == "" || RightNumber == "")
+            {
+                label.Content = $"";
+            }
+            else
+            {
+                label.Content = $"{LeftNumber} {Operator} {RightNumber}";
+            }
         }
     }
 }

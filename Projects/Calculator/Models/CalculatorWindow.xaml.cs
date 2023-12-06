@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GameCenterProject.Projects.Calculator.Models
 {
@@ -24,27 +25,33 @@ namespace GameCenterProject.Projects.Calculator.Models
         {
             InitializeComponent();
             Calculator calculator = Calculator.Instance;
-            Calculator.ClearAll(DisplayText);
-            MessageBox.Show($"left{Calculator.LeftNumber}op{Calculator.Operator}right{Calculator.RightNumber}result{Calculator.Result}");
+            Calculator.ClearAll(DisplayText, DisplayStory);
         }
 
         private void DigitClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
+                //double number;
+                //if (button.Content.ToString() == ".")
+                //{
+                //    number = double.Parse($"{Calculator.LeftNumber}.");
+                //    Calculator.UpdateDisplayText(DisplayText, Calculator.LeftNumber);
+                //    return;
+                //}
                 double number = double.Parse(button.Content.ToString()!);
-
-                if (Calculator.LeftNumber == null) Calculator.LeftNumber = "0";
 
                 if (!operatorUsed)
                 {
-                    if (Calculator.LeftNumber == "0" && number.ToString() != ".")
+                    if (Calculator.LeftNumber == "0")
                     {
                         Calculator.LeftNumber = number.ToString();
                     }
                     else
                     {
-                        Calculator.LeftNumber += number.ToString();
+                        StringBuilder sb = new StringBuilder(Calculator.LeftNumber);
+                        sb.Append(number.ToString());
+                        Calculator.LeftNumber = sb.ToString();
                     }
                     Calculator.UpdateDisplayText(DisplayText, Calculator.LeftNumber);
                 }
@@ -56,11 +63,14 @@ namespace GameCenterProject.Projects.Calculator.Models
                     }
                     else
                     {
-                        Calculator.RightNumber += number.ToString();
+                        StringBuilder sb = new StringBuilder(Calculator.RightNumber);
+                        sb.Append(number.ToString());
+                        Calculator.RightNumber = sb.ToString();
                     }
                     Calculator.UpdateDisplayText(DisplayText, Calculator.RightNumber); 
                 }
             }
+            Calculator.UpdateDisplayStory(DisplayStory);
         }
 
         private void OperatorClick(object sender, RoutedEventArgs e)
@@ -71,6 +81,7 @@ namespace GameCenterProject.Projects.Calculator.Models
                 Calculator.Operator = buttonContent;
             }
             operatorUsed = true;
+            Calculator.UpdateDisplayStory(DisplayStory);
         }
         private void FunctionClick(object sender, RoutedEventArgs e)
         {
@@ -78,19 +89,41 @@ namespace GameCenterProject.Projects.Calculator.Models
             {
                 switch (button.Content.ToString())
                 {
-                    case "C":Calculator.Clear(DisplayText); break;
+                    case "C":Calculator.Clear(DisplayText, DisplayStory); break;
 
-                    case "CE": Calculator.ClearAll(DisplayText); break;
+                    case "CE": Calculator.ClearAll(DisplayText, DisplayStory); break;
 
                     case "+/-":
                         // Code for the "+/-" case
                         break;
 
-                    case "⌫": Calculator.Backspace(DisplayText); break;
+                    case "⌫": Calculator.Backspace(DisplayText, DisplayStory); break;
 
-                    case "=": Calculator.PressCalculate(DisplayText); break;
+                    case "=": Calculator.PressCalculate(DisplayText, DisplayStory); break;
                 }
             }
+        }
+
+        private void DecimalClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                if (!operatorUsed)
+                {
+                    StringBuilder sb = new StringBuilder(Calculator.LeftNumber);
+                    sb.Append(".");
+                    Calculator.LeftNumber = sb.ToString();
+                    Calculator.UpdateDisplayText(DisplayText, Calculator.LeftNumber);
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder(Calculator.RightNumber);
+                    sb.Append(".");
+                    Calculator.RightNumber = sb.ToString();
+                    Calculator.UpdateDisplayText(DisplayText, Calculator.RightNumber);
+                }
+            }
+            Calculator.UpdateDisplayStory(DisplayStory);
         }
     }
 }

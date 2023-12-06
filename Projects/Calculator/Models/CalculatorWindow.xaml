@@ -29,19 +29,41 @@
         </Style>
     </Window.Resources>
     
-    <Grid Background="#F3F3F3">
+    <Grid Grid.Row="0" Background="#F3F3F3">
 
-        <Label 
-            x:Name="DisplayText"
+
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+
+            <Label
+            x:Name="DisplayStory"
             Grid.Row="0"
-            FontSize="48"
-            FontWeight="Bold"
+            FontSize="18"
+            Foreground="Gray"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Right"
             VerticalContentAlignment="Bottom"
             >
-        </Label>
+            </Label>
+
+            <Label 
+            x:Name="DisplayText"
+            Grid.Row="1"
+            FontSize="48"
+            FontWeight="Bold"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Right"
+            VerticalContentAlignment="Top"
+            >
+            </Label>
+
+        </Grid>
 
         <Grid Grid.Row="1" Margin="2">
             <Grid.ColumnDefinitions>
@@ -81,7 +103,7 @@
 
             <Button Grid.Row="4" Grid.Column="0" Content="+/-" Click="FunctionClick"/>
             <Button Grid.Row="4" Grid.Column="1" Content="0" Click="DigitClick"/>
-            <Button Grid.Row="4" Grid.Column="2" Content="." Click="DigitClick"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="." Click="DecimalClick"/>
             <Button Grid.Row="4" Grid.Column="3" Content="=" Click="FunctionClick" Background="#196AA7" Foreground="White"/>
 
         </Grid>
