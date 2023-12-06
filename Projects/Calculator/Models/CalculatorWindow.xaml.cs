@@ -24,6 +24,8 @@ namespace GameCenterProject.Projects.Calculator.Models
         {
             InitializeComponent();
             Calculator calculator = Calculator.Instance;
+            Calculator.ClearAll(DisplayText);
+            MessageBox.Show($"left{Calculator.LeftNumber}op{Calculator.Operator}right{Calculator.RightNumber}result{Calculator.Result}");
         }
 
         private void DigitClick(object sender, RoutedEventArgs e)
@@ -32,19 +34,31 @@ namespace GameCenterProject.Projects.Calculator.Models
             {
                 double number = double.Parse(button.Content.ToString()!);
 
+                if (Calculator.LeftNumber == null) Calculator.LeftNumber = "0";
+
                 if (!operatorUsed)
                 {
-                    Calculator.LeftNumber += number.ToString();
-
-                    //Test
-                    MessageBox.Show($"LeftNumber = {Calculator.LeftNumber}\nRightNumber: {Calculator.RightNumber}\nOperator: {Calculator.Operator}\nResult: {Calculator.Result}");
+                    if (Calculator.LeftNumber == "0" && number.ToString() != ".")
+                    {
+                        Calculator.LeftNumber = number.ToString();
+                    }
+                    else
+                    {
+                        Calculator.LeftNumber += number.ToString();
+                    }
+                    Calculator.UpdateDisplayText(DisplayText, Calculator.LeftNumber);
                 }
                 else
                 {
-                    Calculator.RightNumber += number.ToString();
-
-                    //Test
-                    MessageBox.Show($"LeftNumber = {Calculator.LeftNumber}\nRightNumber: {Calculator.RightNumber}\nOperator: {Calculator.Operator}\nResult: {Calculator.Result}");
+                    if (Calculator.RightNumber == "0" && number.ToString() != ".")
+                    {
+                        Calculator.RightNumber = number.ToString();
+                    }
+                    else
+                    {
+                        Calculator.RightNumber += number.ToString();
+                    }
+                    Calculator.UpdateDisplayText(DisplayText, Calculator.RightNumber); 
                 }
             }
         }
@@ -54,10 +68,7 @@ namespace GameCenterProject.Projects.Calculator.Models
             if (sender is Button button)
             {
                 string buttonContent = button.Content.ToString()!;
-
                 Calculator.Operator = buttonContent;
-
-                MessageBox.Show($"LeftNumber = {Calculator.LeftNumber}\nRightNumber: {Calculator.RightNumber}\nOperator: {Calculator.Operator}\nResult: {Calculator.Result}");
             }
             operatorUsed = true;
         }
@@ -67,17 +78,17 @@ namespace GameCenterProject.Projects.Calculator.Models
             {
                 switch (button.Content.ToString())
                 {
-                    case "C":Calculator.Clear(); break;
+                    case "C":Calculator.Clear(DisplayText); break;
 
-                    case "CE": Calculator.ClearAll(); break;
+                    case "CE": Calculator.ClearAll(DisplayText); break;
 
                     case "+/-":
                         // Code for the "+/-" case
                         break;
 
-                    case "⌫": Calculator.Backspace(); break;
+                    case "⌫": Calculator.Backspace(DisplayText); break;
 
-                    case "=": Calculator.PressCalculate(ResultValue); break;
+                    case "=": Calculator.PressCalculate(DisplayText); break;
                 }
             }
         }

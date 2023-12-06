@@ -28,6 +28,7 @@ namespace GameCenterProject.Projects.Calculator.Models
 
         public Label ResultLabel;
 
+        public static bool firstPress = true;
         private static string _leftNumber { get; set; }
         public static string LeftNumber { get { return _leftNumber; } set { _leftNumber = value; } }
         private static string _rightNumber { get; set; }
@@ -54,54 +55,69 @@ namespace GameCenterProject.Projects.Calculator.Models
             return double.Parse(LeftNumber) / double.Parse(RightNumber);
         }
 
-        public static void Backspace()
+        public static void Backspace(Label label)
         {
-            if (Operator == null)
+            if (Operator == "")
             {
-                if (LeftNumber.Length > 0)
+                if (LeftNumber.Length == 1 || LeftNumber.Length == 0) LeftNumber = "0";
+                if (LeftNumber.Length > 1)
                 {
                     LeftNumber = LeftNumber.Remove(LeftNumber.Length - 1);
                 }
+                UpdateDisplayText(label, LeftNumber);
             }
             else
             {
-                if (RightNumber.Length > 0)
+                if (RightNumber.Length == 1 || RightNumber.Length == 0) RightNumber = "0";
+                if (RightNumber.Length > 1)
                 {
                     RightNumber = RightNumber.Remove(RightNumber.Length - 1);
                 }
+                UpdateDisplayText(label, RightNumber);
             }
         }
-        public static void Clear()
+        public static void Clear(Label label)
         {
             if (Operator == null)
             {
-                LeftNumber = "";
+                LeftNumber = "0";
+                UpdateDisplayText(label, LeftNumber);
             }
             else
             {
-                RightNumber = "";
+                RightNumber = "0";
+                UpdateDisplayText(label, RightNumber);
             }
         }
-        public static void ClearAll()
+        public static void ClearAll(Label label)
         {
-            LeftNumber = "";
+            LeftNumber = "0";
             RightNumber = "";
             Operator = "";
+            UpdateDisplayText(label, LeftNumber);
         }
 
         public static void PressCalculate(Label label)
         {
+            if (RightNumber == "") RightNumber = LeftNumber;
             switch (Operator)
             {
                 case "+": Result = Add().ToString(); break;
                 case "-": Result = Subtract().ToString(); break;
                 case "x": Result = Multiply().ToString(); break;
                 case "÷": Result = Divide().ToString(); break;
+                default: Result = LeftNumber; break;
             }
-
-            MessageBox.Show($"LeftNumber = {LeftNumber}\nRightNumber: {RightNumber}\nOperator: {Operator}\nResult: {Result}");
             Operator = "";
-            label.Content = Result;
+            LeftNumber = Result;
+            UpdateDisplayText(label, LeftNumber);
+            RightNumber = "";
+            Operator = "";
+        }
+
+        public static void UpdateDisplayText(Label label, string valueToDisplay)
+        {
+            label.Content = valueToDisplay;
         }
     }
 }

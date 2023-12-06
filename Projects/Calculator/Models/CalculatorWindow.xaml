@@ -32,7 +32,7 @@
     <Grid Background="#F3F3F3">
 
         <Label 
-            x:Name="ResultValue"
+            x:Name="DisplayText"
             Grid.Row="0"
             FontSize="48"
             FontWeight="Bold"
@@ -41,7 +41,6 @@
             HorizontalContentAlignment="Right"
             VerticalContentAlignment="Bottom"
             >
-            0
         </Label>
 
         <Grid Grid.Row="1" Margin="2">
