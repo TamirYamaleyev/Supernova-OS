@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Threading;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GameCenterProject.Projects.RubiksTimer.Models
 {
@@ -58,12 +51,11 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
         {
             DTimer = new DispatcherTimer(DispatcherPriority.Send);
             DTimer.Interval = TimeSpan.FromMilliseconds(10);
-            DTimer.Tick += DTimer_Tick;
+            DTimer.Tick += DTimer_Tick!;
         }
 
         public void DTimer_Tick(object sender, EventArgs e)
         {
-            // Updates timer value
             Milliseconds += 10;
 
             if (Milliseconds >= 1000)
@@ -98,7 +90,6 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
             Minutes = 0;
         }
 
-        // Handles updating the timer UI text
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {

@@ -8,21 +8,18 @@ namespace GameCenterProject.Projects.TodoList.Models
 {
     internal class TodoTask
     {
-        //properties: Id (int), Description(string), CreatedDate(DateTime), IsComplete(bool)
-
         public int Id { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsComplete { get; set; }
-
-
-        //Constructor (.....)
+        public int Color { get; set; }
         public TodoTask(int id, string description)
         {
             Id = id;
             Description = description;
             CreatedDate = DateTime.Now;
             IsComplete = false;
+            Color = 0000;
         }
     }
 }

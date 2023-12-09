@@ -11,27 +11,25 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
 {
     class HistoryItem
     {
+        public int ID { get; set; }
         public int Milliseconds { get; set; }
         public int Seconds { get; set; }
         public int Minutes { get; set; }
         public Scramble CurrScramble { get; set; }
 
-        public HistoryItem(int milli, int sec, int min , StackPanel countSP, StackPanel historySP, int count)
+        public HistoryItem(int milli, int sec, int min , StackPanel historySP, int count)
         {
             Milliseconds = milli;
             Seconds = sec;
             Minutes = min;
-            //CurrScramble = scr;
 
-            TextBlock countText = new TextBlock();
-            countText.Text = $"{count:D2})";
-            countText.FontSize = 32;
-            countText.FontWeight = FontWeights.Bold;
-
-            countSP.Children.Add(countText);
+            //TextBlock countText = new TextBlock();
+            //countText.Text = $"{count:D2})";
+            //countText.FontSize = 32;
+            //countText.FontWeight = FontWeights.Bold;
 
             TextBlock timeText = new TextBlock();
-            timeText.Text = $" {Minutes:D2}:{Seconds:D2}.{Milliseconds/10:D2}";
+            timeText.Text = $"{count}) {Minutes:D2}:{Seconds:D2}.{Milliseconds/10:D2}";
             timeText.FontSize = 32;
 
             historySP.Children.Add(timeText);

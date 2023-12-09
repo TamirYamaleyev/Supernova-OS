@@ -8,11 +8,14 @@
         WindowState="Maximized"
         WindowStyle="None"
         Title="RubiksTimerWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="BlackScrollViewer" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid x:Name="mainGrid">
-
-
-        <!--Grid Size Definitions-->
-
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.4*"/>
@@ -26,10 +29,17 @@
 
         <!--Background Colors-->
 
-        <Rectangle Grid.Row="0" Grid.Column="0" Fill="#b0b0b0"/>
-        <Rectangle Grid.Row="0" Grid.Column="1" Fill="#78a03c"/>
-        <Rectangle Grid.Row="1" Grid.Column="0" Fill="#581c1c"/>
-        <Rectangle Grid.Row="1" Grid.Column="1" Fill="#b0b0b0"/>
+        <Rectangle Grid.Row="0" Grid.Column="0" Fill="#0F2E3D"/>
+        <Rectangle Grid.Row="0" Grid.Column="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#979494" Offset="0.0"/>
+                    <GradientStop Color="#2B2C31" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Grid.Row="1" Grid.Column="0" Fill="#887B70"/>
+        <Rectangle Grid.Row="1" Grid.Column="1" Fill="#0F2E3D"/>
 
         <Border Grid.Row="0">
             <TextBlock
@@ -133,6 +143,13 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
             </Button>
         </Border>
 
@@ -152,16 +169,13 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.45*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="1" Grid.Column="0">
-                <StackPanel x:Name="CountSP" HorizontalAlignment="Right"/>
-            </Border>
-
             <Border Grid.Row="1" Grid.Column="1">
-                <StackPanel x:Name="HistoryListSP" HorizontalAlignment="Left"/>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" Style="{StaticResource BlackScrollViewer}">
+                    <StackPanel x:Name="HistoryListSP" HorizontalAlignment="Center"/>
+                </ScrollViewer>
             </Border>
         </Grid>
 

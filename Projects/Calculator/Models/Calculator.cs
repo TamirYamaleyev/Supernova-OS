@@ -28,6 +28,8 @@ namespace GameCenterProject.Projects.Calculator.Models
 
         public Label ResultLabel;
 
+        public static bool leftDecimalUsed { get; set; }
+        public static bool rightDecimalUsed { get; set; }
         public static bool firstPress = true;
         private static string _leftNumber { get; set; }
         public static string LeftNumber { get { return _leftNumber; } set { _leftNumber = value; } }
@@ -54,7 +56,11 @@ namespace GameCenterProject.Projects.Calculator.Models
         {
             return double.Parse(LeftNumber) / double.Parse(RightNumber);
         }
-
+        public static double PercentOf()
+        {
+            if (double.Parse(LeftNumber) == 0) throw new ArgumentException("Total value cannot be zero.");
+            return (double.Parse(RightNumber) *  (double.Parse(LeftNumber) / 100));
+        }
         public static void Backspace(Label textLabel, Label storyLabel)
         {
             if (Operator == "")
@@ -82,14 +88,16 @@ namespace GameCenterProject.Projects.Calculator.Models
         }
         public static void Clear(Label textLabel, Label storyLabel)
         {
-            if (Operator == null)
+            if (Operator == "")
             {
                 LeftNumber = "0";
+                Operator = "";
                 UpdateDisplayText(textLabel, LeftNumber);
             }
             else
             {
                 RightNumber = "0";
+                Operator = "";
                 UpdateDisplayText(textLabel, RightNumber);
             }
             UpdateDisplayStory(storyLabel);
@@ -100,19 +108,22 @@ namespace GameCenterProject.Projects.Calculator.Models
             RightNumber = "";
             Operator = "";
             Result = "";
+            leftDecimalUsed = false;
+            rightDecimalUsed = false;
             UpdateDisplayText(textLabel, LeftNumber);
             UpdateDisplayStory(storyLabel);
         }
 
         public static void PressCalculate(Label textLabel, Label storyLabel)
         {
-            if (RightNumber == "") RightNumber = LeftNumber;
+            if (RightNumber == "" && Operator != "") RightNumber = LeftNumber;
             switch (Operator)
             {
                 case "+": Result = Add().ToString(); break;
                 case "-": Result = Subtract().ToString(); break;
                 case "x": Result = Multiply().ToString(); break;
                 case "÷": Result = Divide().ToString(); break;
+                case "%": Result = PercentOf().ToString(); break;
                 default: Result = LeftNumber; break;
             }
             UpdateDisplayStory(storyLabel);
@@ -122,7 +133,6 @@ namespace GameCenterProject.Projects.Calculator.Models
             UpdateDisplayText(textLabel, LeftNumber);
             RightNumber = "";
             Operator = "";
-            //Result = "";
         }
 
         public static void UpdateDisplayText(Label label, string valueToDisplay)

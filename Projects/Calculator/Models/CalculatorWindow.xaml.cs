@@ -32,13 +32,6 @@ namespace GameCenterProject.Projects.Calculator.Models
         {
             if (sender is Button button)
             {
-                //double number;
-                //if (button.Content.ToString() == ".")
-                //{
-                //    number = double.Parse($"{Calculator.LeftNumber}.");
-                //    Calculator.UpdateDisplayText(DisplayText, Calculator.LeftNumber);
-                //    return;
-                //}
                 double number = double.Parse(button.Content.ToString()!);
 
                 if (!operatorUsed)
@@ -83,6 +76,7 @@ namespace GameCenterProject.Projects.Calculator.Models
             operatorUsed = true;
             Calculator.UpdateDisplayStory(DisplayStory);
         }
+
         private void FunctionClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -90,15 +84,13 @@ namespace GameCenterProject.Projects.Calculator.Models
                 switch (button.Content.ToString())
                 {
                     case "C":Calculator.Clear(DisplayText, DisplayStory); break;
-
-                    case "CE": Calculator.ClearAll(DisplayText, DisplayStory); break;
-
-                    case "+/-":
-                        // Code for the "+/-" case
-                        break;
-
+                    case "CE":
+                        {
+                            Calculator.ClearAll(DisplayText, DisplayStory);
+                            operatorUsed = false;
+                            break;
+                        }
                     case "⌫": Calculator.Backspace(DisplayText, DisplayStory); break;
-
                     case "=": Calculator.PressCalculate(DisplayText, DisplayStory); break;
                 }
             }
@@ -108,19 +100,21 @@ namespace GameCenterProject.Projects.Calculator.Models
         {
             if (sender is Button button)
             {
-                if (!operatorUsed)
+                if (!operatorUsed && !Calculator.leftDecimalUsed)
                 {
                     StringBuilder sb = new StringBuilder(Calculator.LeftNumber);
                     sb.Append(".");
                     Calculator.LeftNumber = sb.ToString();
                     Calculator.UpdateDisplayText(DisplayText, Calculator.LeftNumber);
+                    Calculator.leftDecimalUsed = true;
                 }
-                else
+                else if (operatorUsed && !Calculator.rightDecimalUsed)
                 {
                     StringBuilder sb = new StringBuilder(Calculator.RightNumber);
                     sb.Append(".");
                     Calculator.RightNumber = sb.ToString();
                     Calculator.UpdateDisplayText(DisplayText, Calculator.RightNumber);
+                    Calculator.rightDecimalUsed = true;
                 }
             }
             Calculator.UpdateDisplayStory(DisplayStory);

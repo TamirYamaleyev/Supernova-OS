@@ -12,7 +12,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Name="chkTask" IsChecked="{Binding IsComplete}" Click="OnTaskToggled" Width="20"/>
+                        <Button Content="X" Name="removeButton" Click="RemoveTask" Width="20" Height="20" Background="{Binding Color}" BorderBrush="Transparent"/>
+                        <CheckBox Name="chkTask" IsChecked="{Binding IsComplete}" Click="OnTaskToggled" Width="20" Height="20"/>
                         <TextBlock Name="txtTaskDescription" Text="{Binding Description}" MouseLeftButtonDown="OnTextBlockMouseLeftButtonDown" Width="300"/>
                         <TextBox Name="editTaskDescription" Width="300" Visibility="Collapsed"/>
                         <Button Content="Save" Name="btnSave" Visibility="Collapsed" Click="OnSaveEdit"/>

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:GameCenterProject.Projects.Calculator.Models"
         mc:Ignorable="d"
         Title="Calculator" Height="505" Width="335"
-        MinHeight="505" MinWidth="335">
+        MinHeight="505" MinWidth="335"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -101,7 +102,7 @@
             <Button Grid.Row="3" Grid.Column="2" Content="3" Click="DigitClick"/>
             <Button Grid.Row="3" Grid.Column="3" Content="+" Click="OperatorClick"/>
 
-            <Button Grid.Row="4" Grid.Column="0" Content="+/-" Click="FunctionClick"/>
+            <Button Grid.Row="4" Grid.Column="0" Content="%" Click="OperatorClick"/>
             <Button Grid.Row="4" Grid.Column="1" Content="0" Click="DigitClick"/>
             <Button Grid.Row="4" Grid.Column="2" Content="." Click="DecimalClick"/>
             <Button Grid.Row="4" Grid.Column="3" Content="=" Click="FunctionClick" Background="#196AA7" Foreground="White"/>

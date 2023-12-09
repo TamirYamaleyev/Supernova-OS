@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace GameCenterProject.Projects.TodoList.Models
 {
-    /// <summary>
-    /// Interaction logic for TodoList.xaml
-    /// </summary>
     public partial class TodoList : Window
     {
         private TodoListModel _todoList;
@@ -36,7 +33,6 @@ namespace GameCenterProject.Projects.TodoList.Models
 
         private void OnTaskToggled(object sender, RoutedEventArgs e)
         {
-            // Check the type of a variable and create a name for it
             if (sender is CheckBox checkBox && checkBox.DataContext is TodoTask task)
             {
                 _todoList.ToggleTaskIsComplete(task.Id);
@@ -81,5 +77,13 @@ namespace GameCenterProject.Projects.TodoList.Models
                 txtNewTask.Clear();
             }
         }
+
+        private void RemoveTask(object sender, RoutedEventArgs e)
+        {
+        if (sender is Button btn && btn.DataContext is TodoTask task)
+        {
+                _todoList.RemoveTask(task);
+        }
+    }
     }
 }
