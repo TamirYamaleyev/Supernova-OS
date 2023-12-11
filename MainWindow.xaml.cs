@@ -4,6 +4,7 @@ using GameCenterProject.Projects.Brick_Breaker;
 using GameCenterProject.Projects.Calculator.Models;
 using GameCenterProject.Projects.CurrencyConverter;
 using GameCenterProject.Projects.RubiksTimer;
+using GameCenterProject.Projects.SpaceShooter;
 using GameCenterProject.Projects.The_2048;
 using GameCenterProject.Projects.TodoList.Models;
 using System;
@@ -43,11 +44,11 @@ namespace GameCenterProject
             image.Opacity = 0.7;
             GameText.Content = (image.Name) switch
             {
-                "Image1" => "A User Management System",
-                "Image2" => "A To Do List",
-                "Image3" => "A Currency Conversion System",
+                "Image1" => "User Management System",
+                "Image2" => "To Do List",
+                "Image3" => "Currency Conversion System",
                 "Image4" => "Rubik's Cube Timer",
-                "Image5" => "2048",
+                "Image5" => "Space Shooter Game",
                 "Image6" => "Calculator",
                 _ => "please pick a game"
             };
@@ -98,9 +99,11 @@ namespace GameCenterProject
 
         private void Image5_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            The2048Window The2048GameWindow = new();
+            SpaceShooterWindow SpaceShooterProject = new();
+            projectPresentationPage presentation = new();
+            presentation.OnStart("Space Shooter", "" + "LOREM IPSUM", Image1.Source, SpaceShooterProject);
             Hide();
-            The2048GameWindow.ShowDialog();
+            presentation.ShowDialog();
             Show();
         }
 
