@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Projects\Brick Breaker\Models\" />
-    <Folder Include="Projects\SpaceShooter\Models\" />
   </ItemGroup>
 
 </Project>

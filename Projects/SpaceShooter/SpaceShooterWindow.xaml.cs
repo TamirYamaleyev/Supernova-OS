@@ -31,38 +31,49 @@ namespace GameCenterProject.Projects.SpaceShooter
 
         string imagePath = "C:\\Users\\Wraithling\\source\\repos\\GameCenterProject\\Projects\\SpaceShooter\\Images\\";
 
-        int enemySpriteCounter = 0;
-        int enemyCounter = 100;
-        int playerSpeed = 10;
-        int limit = 50;
+        //Window
+        int windowLeftClamp = 0;
+        int windowRightClamp = 90;
+        int defenseLineHeight = 650;
         int score = 0;
         int damage = 0;
-        int enemySpeed = 10;
 
+        //Player
+        int playerSpeed = 10;
+        int damageThreshold = 99;
+        int scoreOnKill = 5;
+        int bulletSpeed = 20;
+        int bulletHeight = 20;
+        int bulletWidth = 5;
+        int scoreThreshold = 25;
         Rect playerHitBox;
+
+        //Enemy
+        int damageOnMiss = 10;
+        int damageOnTouch = 5;
+        int limit = 50;
+        int enemySpeed = 10;
+        int difficultyIncreaseLimit = 20;
+        int difficultyIncreaseSpeed = 15;
+        int enemySpriteCounter = 0;
+        int enemyCounter = 100;
+        int enemyHeight = 50;
+        int enemyWidth = 56;
+        int enemySpawnY = -100;
+
         public SpaceShooterWindow()
         {
             InitializeComponent();
 
-            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
+            gameTimer.Interval = TimeSpan.FromMilliseconds(16.67);
             gameTimer.Tick += GameLoop;
             gameTimer.Start();
 
             GameCanvas.Focus();
             Loaded += GameWindow_Loaded;
 
-            ImageBrush bg = new ImageBrush();
-
-            bg.ImageSource = new BitmapImage(new Uri($"{imagePath}purple.png"));
-            bg.TileMode = TileMode.Tile;
-            bg.Viewport = new Rect(0, 0, 0.15, 0.15);
-            bg.ViewportUnits = BrushMappingMode.RelativeToBoundingBox;
-            GameCanvas.Background = bg;
-
-            ImageBrush playerSprite = new ImageBrush();
-
-            playerSprite.ImageSource = new BitmapImage(new Uri($"{imagePath}player.png"));
-            player.Fill = playerSprite;
+            InitializeBackgroundCanvas();
+            InitializePlayer();
         }
 
         private void GameLoop(object sender, EventArgs e)
@@ -70,45 +81,37 @@ namespace GameCenterProject.Projects.SpaceShooter
             playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
 
             enemyCounter -= 1;
-
-            scoreText.Content = "Score: " + score;
-            damageText.Content = "Damage " + damage;
-
             if (enemyCounter < 0)
             {
                 SpawnEnemies();
                 enemyCounter = limit;
             }
-
-            if (moveLeft && Canvas.GetLeft(player) > 0)
+            // Player Movement
+            if (moveLeft && Canvas.GetLeft(player) > windowLeftClamp)
             {
                 Canvas.SetLeft(player, Canvas.GetLeft(player) - playerSpeed);
             }
-            if (moveRight && Canvas.GetLeft(player) + 90 < windowWidth)
+            if (moveRight && Canvas.GetLeft(player) + windowRightClamp < windowWidth)
             {
                 Canvas.SetLeft(player, Canvas.GetLeft(player) + playerSpeed);
             }
-
             foreach (var entity in GameCanvas.Children.OfType<Rectangle>())
             {
                 if (entity is Rectangle && (string)entity.Tag == "bullet")
                 {
-                    Canvas.SetTop(entity, Canvas.GetTop(entity) - 20);
+                    Rect bulletHitBox = ShootBullet(entity);
 
-                    Rect bulletHitBox = new Rect(Canvas.GetLeft(entity), Canvas.GetTop(entity), entity.Width, entity.Height);
+                    // Release bullet from memory
+                    if (Canvas.GetTop(entity) < -50) itemRemover.Add(entity);
 
-                    if (Canvas.GetTop(entity) < 10) itemRemover.Add(entity);
-
-                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    foreach (var enemy in GameCanvas.Children.OfType<Rectangle>())
                     {
-                        if (y is Rectangle && (string)y.Tag == "enemy")
+                        if (enemy is Rectangle && (string)enemy.Tag == "enemy")
                         {
-                            Rect enemyHit = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-                            if (bulletHitBox.IntersectsWith(enemyHit))
+                            Rect enemySprite = new Rect(Canvas.GetLeft(enemy), Canvas.GetTop(enemy), enemy.Width, enemy.Height);
+                            if (bulletHitBox.IntersectsWith(enemySprite))
                             {
-                                itemRemover.Add(entity);
-                                itemRemover.Add(y);
-                                score += 5;
+                                EnemyHit(entity, enemy);
                             }
                         }
                     }
@@ -117,17 +120,15 @@ namespace GameCenterProject.Projects.SpaceShooter
                 {
                     Canvas.SetTop(entity, Canvas.GetTop(entity) + enemySpeed);
 
-                    if (Canvas.GetTop(entity) > 750)
+                    if (Canvas.GetTop(entity) > defenseLineHeight)
                     {
-                        itemRemover.Add(entity);
-                        damage += 10;
+                        DamagePlayer(entity, damageOnMiss);
                     }
                     Rect enemyHitBox = new Rect(Canvas.GetLeft(entity), Canvas.GetTop(entity), entity.Width, entity.Height);
 
                     if (playerHitBox.IntersectsWith(enemyHitBox))
                     {
-                        itemRemover.Add(entity);
-                        damage += 5;
+                        DamagePlayer(entity, damageOnTouch);
                     }
                 }
             }
@@ -136,22 +137,14 @@ namespace GameCenterProject.Projects.SpaceShooter
                 GameCanvas.Children.Remove(entityToRemove);
             }
 
-            if (score > 25)
+            if (score > scoreThreshold)
             {
-                limit = 20;
-                enemySpeed = 15;
+                IncreaseDifficulty(difficultyIncreaseLimit, difficultyIncreaseSpeed);
             }
-            if (damage > 99)
+            if (damage > damageThreshold)
             {
-                gameTimer.Stop();
-                damageText.Content = "Damage: 100";
-                damageText.Foreground = Brushes.Red;
-                MessageBox.Show($"Captain, Your Score was: {score}!\nPress OK to Play Again", "Game Over!");
-
-                RestartGame();
-
+                GameOver();
             }
-
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -161,7 +154,6 @@ namespace GameCenterProject.Projects.SpaceShooter
                 case Key.Right: moveRight = true; break;
             }
         }
-
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -173,8 +165,8 @@ namespace GameCenterProject.Projects.SpaceShooter
                         Rectangle newBullet = new Rectangle
                         {
                             Tag = "bullet",
-                            Height = 20,
-                            Width = 5,
+                            Height = bulletHeight,
+                            Width = bulletWidth,
                             Fill = Brushes.White,
                             Stroke = Brushes.Red,
                         };
@@ -186,7 +178,6 @@ namespace GameCenterProject.Projects.SpaceShooter
                     break;
             }
         }
-        
         private void SpawnEnemies()
         {
             ImageBrush enemySprite = new ImageBrush();
@@ -203,28 +194,63 @@ namespace GameCenterProject.Projects.SpaceShooter
             Rectangle newEnemy = new Rectangle
             {
                 Tag = "enemy",
-                Height = 50,
-                Width = 56,
+                Height = enemyHeight,
+                Width = enemyWidth,
                 Fill = enemySprite,
             };
-            Canvas.SetTop(newEnemy, -100);
+            Canvas.SetTop(newEnemy, enemySpawnY);
             Canvas.SetLeft(newEnemy, rand.Next(30, 430));
             GameCanvas.Children.Add(newEnemy);
         }
-        private void RestartGame()
+        private void InitializeBackgroundCanvas()
         {
-            enemySpriteCounter = 0;
-            enemyCounter = 100;
-            playerSpeed = 10;
-            limit = 50;
-            score = 0;
-            damage = 0;
-            enemySpeed = 10;
+            ImageBrush bg = new ImageBrush();
 
-            foreach (var enemy in GameCanvas.Children.OfType<Rectangle>())
-            {
-                if (enemy is Rectangle && (string)enemy.Tag == "enemy") GameCanvas.Children.Remove(enemy);
-            }
+            bg.ImageSource = new BitmapImage(new Uri($"{imagePath}space.png"));
+            bg.TileMode = TileMode.Tile;
+            bg.Viewport = new Rect(0, 0, 0.15, 0.15);
+            bg.ViewportUnits = BrushMappingMode.RelativeToBoundingBox;
+            GameCanvas.Background = bg;
+        }
+        private void InitializePlayer()
+        {
+            ImageBrush playerSprite = new ImageBrush();
+
+            playerSprite.ImageSource = new BitmapImage(new Uri($"{imagePath}player.png"));
+            player.Fill = playerSprite;
+        }
+        private Rect ShootBullet(Rectangle bullet)
+        {
+            Canvas.SetTop(bullet, Canvas.GetTop(bullet) - bulletSpeed);
+
+            Rect bulletHitBox = new Rect(Canvas.GetLeft(bullet), Canvas.GetTop(bullet), bullet.Width, bullet.Height);
+            return bulletHitBox;
+        }
+        private void EnemyHit(Rectangle entity, Rectangle enemy)
+        {
+            itemRemover.Add(entity);
+            itemRemover.Add(enemy);
+            score += scoreOnKill;
+            scoreText.Content = $"Score: {score}";
+        }
+        private void DamagePlayer(Rectangle entity, int damageToDeal)
+        {
+            itemRemover.Add(entity);
+            damage += damageToDeal;
+            damageText.Content = $"Damage: {damage}";
+        }
+        private void IncreaseDifficulty(int newLimit, int newEnemySpeed)
+        {
+            limit = newLimit;
+            enemySpeed = newEnemySpeed;
+        }
+        private void GameOver()
+        {
+            gameTimer.Stop();
+            damageText.Content = "Damage: 100";
+            damageText.Foreground = Brushes.Red;
+            MessageBox.Show($"Captain, Your Score Was: {score}\nBetter Luck Next Time!", "Game Over!");
+            Close();
         }
         private void GameWindow_Loaded(object sender, RoutedEventArgs e)
         {
