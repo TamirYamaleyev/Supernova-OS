@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameCenterProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1400"
-        WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="860" Width="1480" Background="#b1aebb"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -25,16 +26,17 @@
                Grid.Row="0"
                Grid.ColumnSpan="3"
                VerticalContentAlignment="Center"
-               Content="Game Center" 
-               HorizontalContentAlignment="Center" 
-               Background="AliceBlue"
+               Content="SupernovaOS" 
+               HorizontalContentAlignment="Center"
+               Background="#5f43b2"
                FontWeight="Bold"
                FontSize="60"
+               FontFamily="Nunito"
         />
 
         <Label 
             x:Name="GameText"
-            Content="please pick a game" 
+            Content="Choose Program:" 
             Grid.Row="1" 
             Grid.Column="1" 
             VerticalAlignment="Center" 
@@ -54,12 +56,12 @@
         />
 
         <WrapPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="Image1" Source="/Images/square1.jpeg" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image1_MouseLeftButtonUp"/>
-            <Image x:Name="Image2" Source="/Images/square2.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image2_MouseLeftButtonUp"/>
-            <Image x:Name="Image3" Source="/Images/square1.jpeg" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image3_MouseLeftButtonUp"/>
-            <Image x:Name="Image4" Source="/Images/square2.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image4_MouseLeftButtonUp"/>
-            <Image x:Name="Image5" Source="/Images/square1.jpeg" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image5_MouseLeftButtonUp"/>
-            <Image x:Name="Image6" Source="/Images/square2.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image6_MouseLeftButtonUp"/>
+            <Image x:Name="Image1" Source="/Images/UserManagement.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image1_MouseLeftButtonUp"/>
+            <Image x:Name="Image2" Source="/Images/Checklist.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image2_MouseLeftButtonUp"/>
+            <Image x:Name="Image3" Source="/Images/CurrencyConversion.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image3_MouseLeftButtonUp"/>
+            <Image x:Name="Image4" Source="/Images/Cube.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image4_MouseLeftButtonUp"/>
+            <Image x:Name="Image5" Source="/Images/Spaceship.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image5_MouseLeftButtonUp"/>
+            <Image x:Name="Image6" Source="/Images/Calculator.png" Width="150" Margin="20" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseLeftButtonUp="Image6_MouseLeftButtonUp"/>
         </WrapPanel>
 
         <Label x:Name="Footer"
@@ -68,9 +70,10 @@
                Grid.ColumnSpan="3"
                VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center" 
-               Background="AliceBlue"
+               Background="#5f43b2"
                FontWeight="Bold"
                FontSize="23"
+               Content="Languages: C#, XAML                          Technologies: .NET 7, WPF"
         />
     </Grid>
 </Window>

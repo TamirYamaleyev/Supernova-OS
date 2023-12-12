@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using System.Windows.Threading;
+using Path = System.IO.Path;
 
 namespace GameCenterProject.Projects.SpaceShooter
 {
@@ -28,8 +29,8 @@ namespace GameCenterProject.Projects.SpaceShooter
         List<Rectangle> itemRemover = new List<Rectangle>();
 
         Random rand = new Random();
-
-        string imagePath = "C:\\Users\\Wraithling\\source\\repos\\GameCenterProject\\Projects\\SpaceShooter\\Images\\";
+        static string imagePath = @"Projects\SpaceShooter\Images\";
+        string fullPath = Path.GetFullPath(imagePath);
 
         //Window
         int windowLeftClamp = 0;
@@ -185,11 +186,11 @@ namespace GameCenterProject.Projects.SpaceShooter
             
             switch(enemySpriteCounter)
             {
-                case 1: enemySprite.ImageSource = new BitmapImage(new Uri($"{imagePath}1.png")); break;
-                case 2: enemySprite.ImageSource = new BitmapImage(new Uri($"{imagePath}2.png")); break;
-                case 3: enemySprite.ImageSource = new BitmapImage(new Uri($"{imagePath}3.png")); break;
-                case 4: enemySprite.ImageSource = new BitmapImage(new Uri($"{imagePath}4.png")); break;
-                case 5: enemySprite.ImageSource = new BitmapImage(new Uri($"{imagePath}5.png")); break;
+                case 1: enemySprite.ImageSource = new BitmapImage(new Uri($"{fullPath}1.png")); break;
+                case 2: enemySprite.ImageSource = new BitmapImage(new Uri($"{fullPath}2.png")); break;
+                case 3: enemySprite.ImageSource = new BitmapImage(new Uri($"{fullPath}3.png")); break;
+                case 4: enemySprite.ImageSource = new BitmapImage(new Uri($"{fullPath}4.png")); break;
+                case 5: enemySprite.ImageSource = new BitmapImage(new Uri($"{fullPath}5.png")); break;
             }
             Rectangle newEnemy = new Rectangle
             {
@@ -206,7 +207,7 @@ namespace GameCenterProject.Projects.SpaceShooter
         {
             ImageBrush bg = new ImageBrush();
 
-            bg.ImageSource = new BitmapImage(new Uri($"{imagePath}space.png"));
+            bg.ImageSource = new BitmapImage(new Uri($"{fullPath}space.png"));
             bg.TileMode = TileMode.Tile;
             bg.Viewport = new Rect(0, 0, 0.15, 0.15);
             bg.ViewportUnits = BrushMappingMode.RelativeToBoundingBox;
@@ -216,7 +217,7 @@ namespace GameCenterProject.Projects.SpaceShooter
         {
             ImageBrush playerSprite = new ImageBrush();
 
-            playerSprite.ImageSource = new BitmapImage(new Uri($"{imagePath}player.png"));
+            playerSprite.ImageSource = new BitmapImage(new Uri($"{fullPath}player.png"));
             player.Fill = playerSprite;
         }
         private Rect ShootBullet(Rectangle bullet)

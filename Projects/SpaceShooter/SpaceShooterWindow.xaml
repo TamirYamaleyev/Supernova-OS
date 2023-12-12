@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameCenterProject.Projects.SpaceShooter"
         mc:Ignorable="d"
-        Title="SpaceShooterWindow" Height="615" Width="800">
+        Title="SpaceShooterWindow" Height="615" Width="800" ResizeMode="CanMinimize">
+    
     <Canvas Name="GameCanvas" Focusable="True" Background="Black" KeyDown="OnKeyDown" KeyUp="OnKeyUp">
         <Rectangle Name="player" Height="50" Width="60" Fill="yellow" Canvas.Left="370" Canvas.Top="509" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
-        <Label Name="scoreText" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="White"/>
-        <Label Name="damageText" Content="Damage: 0" FontSize="18" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Canvas.Left="642" VerticalAlignment="Center" Canvas.Top="10"/>
+        <Label Name="scoreText" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Canvas.Top="10" VerticalAlignment="Center" Canvas.Left="25"/>
+        <Label Name="damageText" Content="Damage: 0" FontSize="18" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Canvas.Left="648" VerticalAlignment="Center" Canvas.Top="10"/>
     </Canvas>
 </Window>

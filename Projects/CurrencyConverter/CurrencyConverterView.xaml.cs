@@ -51,25 +51,28 @@ namespace GameCenterProject.Projects.CurrencyConverter
                 MessageBox.Show($"Error loading currencies: {e.Message}");
             }
         }
-
         private void btnConvert_Click(object sender, RoutedEventArgs e)
         {
-            // Get the selected currencies by the user
-            string targetCurrency = ToCurrencyComboBox.SelectedItem.ToString();
-            string baseCurrency = FromCurrencyComboBox.SelectedItem.ToString();
-            // Get the Amount to convert
-            double amount = double.Parse(AmountTextBox.Text);
+            try
+            {
+                // Get the selected currencies by the user
+                string targetCurrency = ToCurrencyComboBox.SelectedItem.ToString();
+                string baseCurrency = FromCurrencyComboBox.SelectedItem.ToString();
 
-            double baseToTargetRate = _exchangeRates[targetCurrency];
-            double targetToBaseRate = _exchangeRates[baseCurrency];
+                // Get the Amount to convert
+                double? amount = double.Parse(AmountTextBox.Text);
 
-            double convertedAmount = (baseToTargetRate / targetToBaseRate) * amount;
+                double baseToTargetRate = _exchangeRates[targetCurrency];
+                double targetToBaseRate = _exchangeRates[baseCurrency];
 
-            txtResult.Text = $"Converted Amount: {amount} {baseCurrency} is {convertedAmount: 0.00} {targetCurrency}";
-
-
+                if (amount.HasValue && !string.IsNullOrEmpty(targetCurrency) && !string.IsNullOrEmpty(baseCurrency))
+                {
+                    double? convertedAmount = (baseToTargetRate / targetToBaseRate) * amount;
+                    txtResult.Text = $"Converted Amount: {amount} {baseCurrency} is {convertedAmount: 0.00} {targetCurrency}";
+                }
+            }
+            catch { }
         }
-
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");

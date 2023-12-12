@@ -58,8 +58,13 @@ namespace GameCenterProject.Projects.Calculator.Models
         }
         public static double PercentOf()
         {
-            if (double.Parse(LeftNumber) == 0) throw new ArgumentException("Total value cannot be zero.");
-            return (double.Parse(RightNumber) *  (double.Parse(LeftNumber) / 100));
+            try
+            {
+                if (double.Parse(LeftNumber) == 0) throw new ArgumentException("Total value cannot be zero.");
+                return (double.Parse(RightNumber) * (double.Parse(LeftNumber) / 100));
+            }
+            catch { }
+            return 0;
         }
         public static void Backspace(Label textLabel, Label storyLabel)
         {

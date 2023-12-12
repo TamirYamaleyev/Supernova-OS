@@ -9,12 +9,6 @@
         WindowStyle="None"
         Title="RubiksTimerWindow" Height="450" Width="800">
 
-    <Window.Resources>
-        <Style x:Key="BlackScrollViewer" TargetType="{x:Type ScrollViewer}">
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
-    </Window.Resources>
-    
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
@@ -175,12 +169,12 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Row="1" Grid.Column="1">
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" Style="{StaticResource BlackScrollViewer}">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <StackPanel x:Name="HistoryListSP" HorizontalAlignment="Center"/>
                 </ScrollViewer>
             </Border>
             <Border Grid.Row="2" Grid.Column="1">
-                <Image Source="C:\Users\Wraithling\source\repos\GameCenterProject\Projects\RubiksTimer\Images\arrow.png"/>
+                <Image Margin="5" Source="C:\Users\Wraithling\source\repos\GameCenterProject\Projects\RubiksTimer\Images\arrow.png"/>
             </Border>
         </Grid>
 

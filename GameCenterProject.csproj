@@ -8,21 +8,57 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Calculator.png" />
+    <None Remove="Images\Checklist.png" />
+    <None Remove="Images\Cube.png" />
+    <None Remove="Images\CurrencyConversion.png" />
+    <None Remove="Images\Spaceship.png" />
     <None Remove="Images\square1.jpeg" />
     <None Remove="Images\square2.png" />
+    <None Remove="Images\UserManagement.png" />
     <None Remove="Projects\The 2048\Images\2048Image.png" />
     <None Remove="Projects\The 2048\Images\Number2Tile.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Calculator.png" />
+    <Resource Include="Images\Checklist.png" />
+    <Resource Include="Images\Cube.png" />
+    <Resource Include="Images\CurrencyConversion.png" />
+    <Resource Include="Images\Spaceship.png" />
     <Resource Include="Images\square1.jpeg" />
     <Resource Include="Images\square2.png" />
+    <Resource Include="Images\UserManagement.png" />
     <Resource Include="Projects\The 2048\Images\2048Image.png" />
     <Resource Include="Projects\The 2048\Images\Number2Tile.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Projects\Brick Breaker\Models\" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Projects\SpaceShooter\Images\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Projects\SpaceShooter\Images\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Projects\SpaceShooter\Images\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Projects\SpaceShooter\Images\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Projects\SpaceShooter\Images\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Projects\SpaceShooter\Images\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Projects\SpaceShooter\Images\space.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
