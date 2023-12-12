@@ -24,11 +24,6 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
             Seconds = sec;
             Minutes = min;
 
-            //TextBlock countText = new TextBlock();
-            //countText.Text = $"{count:D2})";
-            //countText.FontSize = 32;
-            //countText.FontWeight = FontWeights.Bold;
-
             TextBlock timeText = new TextBlock();
             timeText.Text = $"{count}) {Minutes:D2}:{Seconds:D2}.{Milliseconds/10:D2}";
             timeText.FontSize = 32;

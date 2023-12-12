@@ -17,9 +17,8 @@ namespace GameCenterProject.Projects.CurrencyConverter.Services
 
         public async Task<Dictionary<string, double>> GetExchangeRatesAsync()
         {
-            // "access_key" is just part of the website URL
             string requestUrl = $"{BaseApiEndPoint}?access_key={ApiKey}";
-            // Return only the body of the API call without all of the headers and cookies
+
             string response = await Http_Client.GetStringAsync(requestUrl);
 
             JsonSerializerOptions options = new JsonSerializerOptions
@@ -27,7 +26,6 @@ namespace GameCenterProject.Projects.CurrencyConverter.Services
                 PropertyNameCaseInsensitive = true
             };
 
-            // Translate the JSON object into a C# object of the type ExchangeResponse
             ExchangeResponse exchangeData = JsonSerializer.Deserialize<ExchangeResponse>(response, options);
 
             if (exchangeData == null || exchangeData.Rates == null)

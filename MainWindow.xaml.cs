@@ -1,11 +1,9 @@
 ﻿using gameCenter.Projects.Project1;
 using GameCenterProject.Projects;
-using GameCenterProject.Projects.Brick_Breaker;
 using GameCenterProject.Projects.Calculator.Models;
 using GameCenterProject.Projects.CurrencyConverter;
 using GameCenterProject.Projects.RubiksTimer;
 using GameCenterProject.Projects.SpaceShooter;
-using GameCenterProject.Projects.The_2048;
 using GameCenterProject.Projects.TodoList.Models;
 using System;
 using System.Text;
@@ -76,8 +74,8 @@ namespace GameCenterProject
             TodoList todoListProject = new();
             projectPresentationPage presentation = new();
             string projectDescription = 
-                "A simple To-Do List that allows adding and removing tasks, as well as checking/unchecking their completion and" +
-                "editing by double clicking the text.";
+                "A simple To-Do List that allows adding and removing tasks, as well as checking/unchecking their completion and " +
+                "editing by double-clicking the text.";
             presentation.OnStart("To Do List", projectDescription, Image2.Source, todoListProject);
             Hide();
             presentation.ShowDialog();

@@ -37,14 +37,10 @@ namespace GameCenterProject.Projects.CurrencyConverter
         {
             try
             {
-                // Retrieve list of currencies from the API (GetExchangeRatesAsync())
                 _exchangeRates = await _currencyService.GetExchangeRatesAsync();
                 string[] currencies = _exchangeRates.Keys.ToArray();
-                // Save the Dictionary values as an array of currencies
-                // Set the dropdown menu keys to be each item in the array of currencies (ItemSource of ComboBox)
                 FromCurrencyComboBox.ItemsSource = currencies;
                 ToCurrencyComboBox.ItemsSource = currencies;
-                // Error handling (try catch => MessageBox.Show(...) 
             }
             catch (Exception e)
             {
@@ -55,11 +51,9 @@ namespace GameCenterProject.Projects.CurrencyConverter
         {
             try
             {
-                // Get the selected currencies by the user
                 string targetCurrency = ToCurrencyComboBox.SelectedItem.ToString();
                 string baseCurrency = FromCurrencyComboBox.SelectedItem.ToString();
 
-                // Get the Amount to convert
                 double? amount = double.Parse(AmountTextBox.Text);
 
                 double baseToTargetRate = _exchangeRates[targetCurrency];

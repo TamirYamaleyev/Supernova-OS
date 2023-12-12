@@ -20,9 +20,6 @@
             <ColumnDefinition Width="0.15*"/>
         </Grid.ColumnDefinitions>
 
-
-        <!--Background Colors-->
-
         <Rectangle Grid.Row="0" Grid.Column="0" Fill="#0F2E3D"/>
         <Rectangle Grid.Row="0" Grid.Column="1">
             <Rectangle.Fill>
