@@ -87,7 +87,7 @@ namespace GameCenterProject
             CurrencyConverterView currencyConverterProject = new();
             projectPresentationPage presentation = new();
             string projectDescription = 
-                "A Currency Conversion system that lets the user choose the currency their converting from and to," +
+                "A Currency Conversion system that lets the user choose the currency they're converting from and to, " +
                 "and then uses the appropriate exchange rate multiplied by the amount entered.";
             presentation.OnStart("Currency Converter", projectDescription, Image3.Source, currencyConverterProject);
             Hide();
@@ -112,7 +112,7 @@ namespace GameCenterProject
             SpaceShooterWindow SpaceShooterProject = new();
             projectPresentationPage presentation = new();
             string projectDescription =
-                "A Space Shooter game where the player controls a ship that has to dodge enemies flying towards it whilst shooting them in order to" +
+                "A Space Shooter game where the player controls a ship that has to dodge enemies flying towards it whilst shooting them in order to " +
                 "score points.";
             presentation.OnStart("Space Shooter", projectDescription, Image5.Source, SpaceShooterProject);
             Hide();
