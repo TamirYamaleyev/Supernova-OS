@@ -159,13 +159,15 @@
             HorizontalAlignment="Center"
             FontSize="36"
             FontWeight="Bold"
+            Foreground="Silver"
             Margin="0, 30, 0, 0"
             Text="Times"/>
 
         <Grid x:Name="timesGrid" Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.15*"/>
+                <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="0.04*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -176,6 +178,9 @@
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Style="{StaticResource BlackScrollViewer}">
                     <StackPanel x:Name="HistoryListSP" HorizontalAlignment="Center"/>
                 </ScrollViewer>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="1">
+                <Image Source="C:\Users\Wraithling\source\repos\GameCenterProject\Projects\RubiksTimer\Images\arrow.png"/>
             </Border>
         </Grid>
 

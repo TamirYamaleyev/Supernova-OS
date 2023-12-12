@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace GameCenterProject.Projects.RubiksTimer.Models
 {
@@ -31,6 +32,7 @@ namespace GameCenterProject.Projects.RubiksTimer.Models
             TextBlock timeText = new TextBlock();
             timeText.Text = $"{count}) {Minutes:D2}:{Seconds:D2}.{Milliseconds/10:D2}";
             timeText.FontSize = 32;
+            timeText.Foreground = Brushes.Silver;
 
             historySP.Children.Add(timeText);
         }
